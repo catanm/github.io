@@ -2,16 +2,58 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>GitHub.io by catanm</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <title>Che schifo i poveri</title>
   </head>
   <body>
-    <p>VAI FOTTUTO CHARIZARD</p>
-  <img src="giphy.gif">
-  
+    <div id="chartContainer" style="height: 300px; width: 100%;">  
   </body>
 </html>
+<script>
+  cost = 50000;
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function printFun(response) {
+	json = JSON.parse(response);
+  datapoints = [];
+  for (i = 0; i < json.t.length; i++) {
+    datapoints.push({x: new Date(json.t[i] * 1000), y: cost/json.c[i]})
+  }
+	createChart();
+}
+
+httpGetAsync("https://finnhub.io/api/v1/stock/candle?symbol=HUBS&resolution=D&from=1604199072&to=1604890272&token=bqv0ojfrh5r9l20rcj40", printFun); 
+
+
+
+function createChart() {
+	var chart = new CanvasJS.Chart("chartContainer",
+  {
+
+  title:{
+    text: "Wrangler"
+  },
+  axisY: {
+  	stripLines: [{value: 50, color:"#FF0000", thickness:2,}],
+    minimum: 0,
+  },
+  data: [
+    {
+      type: "line",
+
+      dataPoints: datapoints
+    }
+  ]
+});
+
+	chart.render();
+}
+</script>
