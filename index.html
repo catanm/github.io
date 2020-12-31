@@ -30,8 +30,11 @@ function printFun(response) {
   }
 	createChart();
 }
+	
+toDate = Date.now();
+fromDate = toDate.setMonth(date.getMonth() – 12);
 
-httpGetAsync("https://finnhub.io/api/v1/stock/candle?symbol=HUBS&resolution=D&from=1538368952&to=1604890272&token=bqv0ojfrh5r9l20rcj40", printFun); 
+httpGetAsync("https://finnhub.io/api/v1/stock/candle?symbol=HUBS&resolution=D&from="+ fromDate +"&to="+ toDate +"&token=bqv0ojfrh5r9l20rcj40", printFun); 
 
 
 
