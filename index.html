@@ -32,7 +32,7 @@ function printFun(response) {
 }
 	
 toDate = Date.now();
-fromDate = toDate.setMonth(toDate.getMonth() – 12);
+fromDate = toDate - 31556952000; //1 year
 
 httpGetAsync("https://finnhub.io/api/v1/stock/candle?symbol=HUBS&resolution=D&from="+ fromDate +"&to="+ toDate +"&token=bqv0ojfrh5r9l20rcj40", printFun); 
 
